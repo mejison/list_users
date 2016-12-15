@@ -12,6 +12,7 @@
 			$scope.wait = false;
 			$scope.field_sort = 'id';
 			$scope.modal = {};
+			$scope.review = {};
 			
 			$scope.init = function()
 			{
@@ -34,10 +35,24 @@
 						$scope.modal.first_name = $scope.users[i].first_name;
 						$scope.modal.last_name = $scope.users[i].last_name;
 						$scope.modal.phone = $scope.users[i].phone;
+						$scope.modal.addr = $scope.users[i].addr;
 					}
 				}
 				
 				$('#add_modal').modal('show');
+			}
+			
+			$scope.show_review = function(id)
+			{
+				for(var i in $scope.users)
+				{
+					if ($scope.users[i].id == id && $scope.users[i].reviews)
+					{
+						$scope.review = $scope.users[i].reviews;
+						$scope.review.user = $scope.users[i];
+						$('#review_modal').modal('show');
+					}
+				}
 			}
 			
 			$scope.save_user = function()

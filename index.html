@@ -32,8 +32,7 @@
 			
 			<div class="col-xs-3 text-right">
 				<button class="btn btn-default" data-toggle="modal" data-target="#add_modal">
-					<i class="fa fa-plus" aria-hidden="true"></i>
-					Add user
+					<i class="fa fa-user-plus" aria-hidden="true"></i>
 				</button>
 			</div>
 			
@@ -69,14 +68,17 @@
 								Date add
 								<i ng-click="change_field('date')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
 							</th>
-							<th>
+							<th class="text-center">
 								Count reviews
 								<i ng-click="change_field('count_reviews')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
 							</th>
-							<th>
+							<th class="text-center">
+								Last reviews
+							</td>
+							<th class="text-center">
 								Edit
 							</th>
-							<th>
+							<th class="text-center">
 								Remove
 							</th>
 						</tr> 
@@ -88,11 +90,14 @@
 							<td>{{user.last_name}}</td>
 							<td>{{user.phone}}</td>
 							<td>{{user.date}}</td>
-							<td>{{user.count_reviews}}</td>
-							<td>
+							<td class="text-center">{{user.count_reviews}}</td>
+							<td class="text-center">
+								<i class="fa fa-pencil-square-o btn-icon" aria-hidden="true" ng-click="show_review(user.id)"></i>
+							</td>
+							<td class="text-center">
 								<i class="fa fa-pencil-square btn-icon" aria-hidden="true" ng-click="edit_user(user.id)"></i>
 							</td>
-							<td>
+							<td class="text-center">
 								<i class="fa fa-trash btn-icon" aria-hidden="true" ng-click="remove_user(user.id)"></i>
 							</td>
 						</tr>
@@ -102,11 +107,34 @@
 			</div>
 		</div>
 		
-		<div class="modal fade" id="add_modal">
+		<div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close"><span>&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
+						<h4 class="modal-title">Last Review</h4>
+					</div>
+					<div class="modal-body">
+						<h4>{{review.user.first_name + ' ' + review.user.last_name}}
+							<span>
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								{{review.date_add}}
+							</span>
+						</h4>
+						
+						<p>
+							{{review.desc}}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
 						<h4 class="modal-title">{{modal.id ? 'Edit user' : 'Add user'}}</h4>
 					</div>
 					<div class="modal-body">
@@ -117,7 +145,10 @@
 							<input class="form-control" placeholder="Last name" type="text" ng-model="modal.last_name"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" placeholder="Last name" type="phone" ng-model="modal.phone"/>
+							<input class="form-control" placeholder="Phone" type="phone" ng-model="modal.phone"/>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" placeholder="Address" type="text" ng-model="modal.addr"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
