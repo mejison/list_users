@@ -22,12 +22,14 @@
 			$result = $this->_db->query($sql);
 			foreach($result->fetch_all(1) as $row)
 			{
+				$row['date_add'] = date('Y.m.d H:m:s', $row['date_add']);
 				$users[$row['users_id']]['reviews'][] = $row;
 			}
 			
 			foreach($users as $row)
 			{
 				$users[$row['id']]['count_reviews'] = count($row['reviews']);
+				$users[$row['id']]['reviews'] = isset($users[$row['id']]['reviews']) ? end($users[$row['id']]['reviews']) : null;
 			}
 			
 			return $users;
