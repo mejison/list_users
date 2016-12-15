@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Test App</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">
+			Test App
+		  </a>
+		</div>
+	  </div>
+	</nav>
+	
+	<div class="container main" ng-controller="CtrlMain">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<p class="title">
+						Users list 
+						<i ng-show="wait" class="fa fa-spinner" aria-hidden="true"></i>
+						
+						</p>
+				</div>
+			</div>
+			
+			<div class="col-xs-3 text-right">
+				<button class="btn btn-default" data-toggle="modal" data-target="#add_modal">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+					Add user
+				</button>
+			</div>
+			
+			<div class="col-xs-6">
+			  <div class="form-group">
+				<input class="form-control" placeholder="Enter to saerch ..." ng-model="search"/>
+			  </div>
+			</div>
+		</div>
+			
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-hover table-striped"> 
+					<thead> 
+						<tr> 
+							<th>
+								#
+								<i ng-click="change_field('id')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th> 
+							<th>
+								First Name
+								<i ng-click="change_field('first_name')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th> 
+							<th>
+								Last Name
+								<i ng-click="change_field('last_name')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th> 
+							<th >
+								Phone
+								<i ng-click="change_field('phone')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th> 
+							<th>
+								Date add
+								<i ng-click="change_field('date')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th>
+							<th>
+								Count reviews
+								<i ng-click="change_field('count_reviews')" class="fa fa-sort btn-icon" aria-hidden="true"></i>
+							</th>
+							<th>
+								Edit
+							</th>
+							<th>
+								Remove
+							</th>
+						</tr> 
+					</thead> 
+					<tbody>
+						<tr ng-repeat="user in users | orderBy:field_sort | filter:search"> 
+							<td>{{user.id}}</td>
+							<td>{{user.first_name}}</td>
+							<td>{{user.last_name}}</td>
+							<td>{{user.phone}}</td>
+							<td>{{user.date}}</td>
+							<td>{{user.count_reviews}}</td>
+							<td>
+								<i class="fa fa-pencil-square btn-icon" aria-hidden="true" ng-click="edit_user(user.id)"></i>
+							</td>
+							<td>
+								<i class="fa fa-trash btn-icon" aria-hidden="true" ng-click="remove_user(user.id)"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<h4 class="text-center" ng-show="users.length == 0">Emtpy database! Please insert data in DB.</h4>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="add_modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close"><span>&times;</span></button>
+						<h4 class="modal-title">{{modal.id ? 'Edit user' : 'Add user'}}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input class="form-control" placeholder="First name" type="text" ng-model="modal.first_name"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" placeholder="Last name" type="text" ng-model="modal.last_name"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" placeholder="Last name" type="phone" ng-model="modal.phone"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="save_user()">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src="https://use.fontawesome.com/00aaecc804.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

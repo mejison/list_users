@@ -1,0 +1,11 @@
+div.main {
+	margin-top: 70px;
+}
+
+p.title {
+	font-size: 22px;
+}
+
+i.btn-icon {
+	cursor: pointer;
+}
